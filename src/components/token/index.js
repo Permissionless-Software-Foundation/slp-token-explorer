@@ -151,6 +151,10 @@ async function handleGetTokenData (appData) {
     const tokenData2 = await appData.wallet.getTokenData2(textInput)
     console.log(`tokenData2: ${JSON.stringify(tokenData2, null, 2)}`)
 
+    if(!tokenData2) {
+      throw new Error(`This does not appear to be a token ID. Maybe it's a token transaction instead?`)
+    }
+
     // Render the token icon if it exists.
     if (tokenData2.optimizedTokenIcon) {
       // this.useState({ iconUrl: tokenData2.optimizedTokenIcon })
