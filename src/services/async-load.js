@@ -41,6 +41,7 @@ class AsyncLoad {
     const wallet = new this.BchWallet(null, options)
 
     await wallet.walletInfoPromise
+    await wallet.initialize()
     // console.log(`mnemonic: ${wallet.walletInfo.mnemonic}`)
 
     this.wallet = wallet
@@ -92,22 +93,14 @@ class AsyncLoad {
       const gistLib = new GistServers()
       const gistServers = await gistLib.getServerList()
 
-      const serversAry = []
-
-      for (let i = 0; i < gistServers.length; i++) {
-        serversAry.push({ value: gistServers[i].url, label: gistServers[i].url })
-      }
-
-      return serversAry
+      return gistServers
     } catch (err) {
       console.error('Error trying to retrieve list of servers from GitHub: ', err)
       console.log('Returning hard-coded list of servers.')
 
       const defaultOptions = [
         { value: 'https://free-bch.fullstack.cash', label: 'https://free-bch.fullstack.cash' },
-        { value: 'https://bc01-ca-bch-consumer.fullstackcash.nl', label: 'https://bc01-ca-bch-consumer.fullstackcash.nl' },
-        { value: 'https://pdx01-usa-bch-consumer.fullstackcash.nl', label: 'https://pdx01-usa-bch-consumer.fullstackcash.nl' },
-        { value: 'https://wa-usa-bch-consumer.fullstackcash.nl', label: 'https://wa-usa-bch-consumer.fullstackcash.nl' }
+        { value: 'https://dev-consumer.psfoundation.info', label: 'https://dev-consumer.psfoundation.info' }
       ]
 
       return defaultOptions
