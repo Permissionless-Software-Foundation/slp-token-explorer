@@ -8,41 +8,27 @@
 
 // Global npm libraries
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 // Local libraries
-import TokenView from '../token/index.js'
-import Placeholder2 from '../placeholder2'
-import Placeholder3 from '../placeholder3'
-import ServerSelectView from '../servers/select-server-view'
+import TokenView from './token/index.js'
+// import GetBalance from './balance'
+import ServerSelectView from './configuration/select-server-view'
 
 function AppBody (props) {
   // Dependency injection through props
   const appData = props.appData
-  const menuState = props.menuState
-  // console.log('AppBody() menuState: ', menuState)
-
-  function chooseView (menuState) {
-    // console.log(`chooseView() menuState: ${menuState}`)
-
-    switch (menuState) {
-      case 0:
-        return (<TokenView wallet={appData.wallet} appData={appData} />)
-      case 1:
-        return (<Placeholder2 />)
-      case 2:
-        return (<Placeholder3 />)
-
-        // Special Views
-      case 100:
-        return (<ServerSelectView appData={appData} />)
-      default:
-        return (<TokenView wallet={appData.wallet} appData={appData} />)
-    }
-  }
 
   return (
     <>
-      {chooseView(menuState)}
+      <Routes>
+        <Route path='/' element={<TokenView appData={appData} />} />
+        {/* <Route path='/balance' element={<GetBalance wallet={appData.wallet} />} /> */}
+        <Route path='/tokens' element={<TokenView appData={appData} />} />
+        <Route path='/configuration' element={<ServerSelectView appData={appData} />} />
+      </Routes>
+      {/** Show in all paths except the servers view */}
+      {/* {appData.currentPath !== '/servers' && <SelectServerButton linkTo='/servers' appData={appData} />} */}
     </>
   )
 }

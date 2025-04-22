@@ -17,7 +17,7 @@ import JsonDisplay from './json-display.js'
 
 function TokenView (props) {
   const appData = props.appData
-
+  console.log(appData)
   // State for this component
   const [iconUrl, setIconUrl] = useState(null)
   const [iconLink, setIconLink] = useState('')
